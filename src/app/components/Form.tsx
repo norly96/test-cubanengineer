@@ -8,10 +8,16 @@ const Form = () => {
 
   const showActions = () => {
     setShow(true);
-  };
+  }
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
-  };
+  }
+
+  const submitEmpty = () => {
+    if(value === ""){
+      setShow(false)
+    }
+  }
 
   const formatText = (value: string) => {
     const mentionRegex = /@\w+/g;
@@ -40,7 +46,7 @@ const Form = () => {
 
   return (
     <div>
-      <div onClick={showActions} className="flex flex-row  h-10 mx-6 mt-10">
+      <div onClick={showActions} className="flex flex-row items-center h-10 mx-6 mt-10">
         <Image
           src="/plus-square.svg"
           width={24}
@@ -59,12 +65,19 @@ const Form = () => {
           {formatText(value)}
           </div>
         </div>
+        <Image
+          src="/avatar.png"
+          width={24}
+          height={24}
+          alt="avatar"
+          className={`h-6 ${ value === '' ? 'opacity-15' : ''}`}
+        />
       </div>
 
       {show && (
-        <div className="flex justify-between mx-6 pb-2 px-1 shadow-md rounded-sm">
+        <div className="flex justify-between mx-6 pb-2 mt-4 px-1 shadow-md rounded-sm">
           <div className="flex flex-row gap-1">
-            <button className="flex flex-row mr-3 px-3 py-1 bg-gray-200 border-2 rounded-lg">
+            <button disabled={value === ''} className={`flex flex-row mr-3 px-3 py-1 bg-gray-200 text-black border-2 rounded-lg ${value === "" ? 'opacity-25' : 'opacity-90'}`}>
               <Image
                 src="/maximize-2.svg"
                 width={20}
@@ -73,7 +86,7 @@ const Form = () => {
               />
               <span className="ml-2 text-sm font-semibold">Open</span>
             </button>
-            <button className="flex flex-row px-3 py-1 border-gray-500 border-2 rounded-lg">
+            <button disabled={value === ''} className={`flex flex-row px-3 py-1 border-gray-500 border-2 rounded-lg ${value === "" ? 'opacity-20' : 'opacity-50'}`}>
               {" "}
               <Image
                 src="/calendar.svg"
@@ -83,7 +96,7 @@ const Form = () => {
               />
               <span className="ml-2 text-sm font-semibold">Today</span>
             </button>
-            <button className="flex flex-row px-3 py-1 border-gray-500 border-2 rounded-lg" >
+            <button disabled={value === ''} className={`flex flex-row px-3 py-1 border-gray-500 border-2 rounded-lg ${value === "" ? 'opacity-20' : 'opacity-50'}`} >
               {" "}
               <Image
                 src="/unlock.svg"
@@ -93,7 +106,7 @@ const Form = () => {
               />
               <span className="ml-2 text-sm font-semibold">Public</span>
             </button>
-            <button className="flex flex-row px-3 py-1 border-gray-500 border-2 rounded-lg">
+            <button disabled={value === ''} className={`flex flex-row px-3 py-1 border-gray-500 border-2 rounded-lg ${value === "" ? 'opacity-20' : 'opacity-50'}`}>
               {" "}
               <Image
                 src="/loader.svg"
@@ -103,7 +116,7 @@ const Form = () => {
               />
               <span className="ml-2 text-sm font-semibold">Highlight</span>
             </button>
-            <button className="flex flex-row px-3 py-1 border-gray-500 border-2 rounded-lg">
+            <button disabled={value === ''} className={`flex flex-row px-3 py-1 border-gray-500 border-2 rounded-lg ${value === "" ? 'opacity-20' : 'opacity-50'}`}>
               {" "}
               <Image
                 src="/disc.svg"
@@ -118,8 +131,9 @@ const Form = () => {
             <button onClick={() => setShow(false)} className="mr-1 px-4 py-1 bg-gray-200 border-2 rounded-lg">
               <span className="text-sm text-black font-semibold">Cancel</span>
             </button>
-            <button className="mr-1 px-4 py-1 bg-blue-600 rounded-lg">
-              <span className="text-sm text-white font-semibold">Ok</span>
+            <button onClick={submitEmpty} className="mr-1 px-4 py-1 bg-blue-600 rounded-lg">
+              
+              <span className="text-sm text-white font-semibold">{value === "" ? "Ok" : "Add"}</span>
             </button>
           </div>
         </div>
